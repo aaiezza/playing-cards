@@ -39,12 +39,12 @@ class DealerTest {
 
         assertThat(newDeck.size).isEqualTo(38u)
         assertThat(hands[0]).isEqualTo(
-            listOf(
+            Hand(
                 "A" of "S", 3 of "S", 5 of "S", 7 of "S", 9 of "S", "J" of "S", "K" of "S"
             )
         )
         assertThat(hands[1]).isEqualTo(
-            listOf(
+            Hand(
                 2 of "S", 4 of "S", 6 of "S", 8 of "S", 10 of "S", "Q" of "S", "A" of "D"
             )
         )
