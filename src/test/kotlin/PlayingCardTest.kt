@@ -14,7 +14,7 @@ class PlayingCardTest {
 
     @Test
     fun `should fail to make impossible card value`() {
-        assertFailsWith(IllegalArgumentException::class) { PlayingCard.Value(13u) }
+        assertFailsWith(IllegalArgumentException::class) { PlayingCard.Value(14u) }
     }
 
     @Test

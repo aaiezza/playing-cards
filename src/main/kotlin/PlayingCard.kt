@@ -1,9 +1,15 @@
+import PlayingCard.Suit.Companion.SUIT_STRINGS
+import PlayingCard.Value.Companion.CARD_VALUES
+import PlayingCard.Value.Companion.of
 import java.util.*
 
 data class PlayingCard(val value: Value, val suit: Suit) {
-    constructor(letterValue: String) :
-            this(Value(letterValue[0]), Suit(letterValue[1])) {
-        require(letterValue.length == 2) { "Playing Card string value must be exactly 2 characters – value and suit. Example: KS, 4♥, 7D, A♣, etc." }
+    constructor(cardString: String) :
+            this(
+                Value((if (cardString.length == 2) 1 else 2).let { cardString.substring(0, it) }),
+                Suit(cardString[cardString.length - 1])
+            ) {
+        require(cardString.length in 2..3) { "Playing Card string value must be exactly 2 or 3 characters – value and suit. Example: KS, 4♥, 7D, A♣, etc." }
     }
 
     override fun toString() = "$value$suit"
@@ -14,28 +20,26 @@ data class PlayingCard(val value: Value, val suit: Suit) {
 
     data class Value(val value: UInt) {
         init {
-            require(value in 0u..12u) { "Value of playing card must be between 0 and 12 inclusively." }
+            require(value in CARD_VALUES) { "Value of playing card must be between 1 and 13 inclusively." }
         }
 
         override fun toString() = when (value) {
-            0u -> "A"
-            in 1u..9u -> "$value"
-            10u -> "J"
-            11u -> "Q"
-            12u -> "K"
-            else -> throw IllegalStateException()
+            1u -> "A"
+            11u -> "J"
+            12u -> "Q"
+            13u -> "K"
+            else -> "$value"
         }
 
         companion object {
-            operator fun invoke(letterValue: Char) = Value(letterValue.toString())
+            val CARD_VALUES = 1u..13u
 
             operator fun invoke(letterValue: String) = when (letterValue.uppercase()) {
-                "A" -> 0u
-                in "1".."9" -> letterValue.toUInt()
-                "J" -> 10u
-                "Q" -> 11u
-                "K" -> 12u
-                else -> 100u
+                "A" -> 1u
+                "J" -> 11u
+                "Q" -> 12u
+                "K" -> 13u
+                else -> letterValue.toUInt()
             }.let(::Value)
 
             infix fun String.of(letterSuit: String) = PlayingCard(Value(this), Suit(letterSuit))
@@ -53,12 +57,11 @@ data class PlayingCard(val value: Value, val suit: Suit) {
                 "D" -> "♦"
                 "C" -> "♣"
                 "H" -> "♥"
-                in SUIT_STRINGS -> value
-                else -> ""
+                else -> value
             }
             require(
                 this.value in SUIT_STRINGS
-            ) { "Suit of Playing card must be Spade(♠), Diamond(♦), Club(♣), or Heart(♥)" }
+            ) { "Suit of Playing card must be Spade(♠,S), Diamond(♦,D), Club(♣,C), or Heart(♥,H)" }
         }
 
         constructor(letterSuit: Char) : this(letterSuit.toString())
@@ -77,6 +80,27 @@ data class PlayingCard(val value: Value, val suit: Suit) {
                 "♣",
                 "♥"
             )
+        }
+    }
+
+    /* Deck of Playing Cards */
+
+    data class Deck(private val value: List<PlayingCard>) {
+        fun shuffled() = value.shuffled().let(::Deck)
+
+        val size get() = value.size.toUInt()
+
+        fun draw(): Pair<PlayingCard, Deck> {
+            return Pair(value[0], Deck(value.subList(1, size.toInt())))
+        }
+
+        override fun toString() = value.toString()
+
+        companion object {
+            fun standard() =
+                SUIT_STRINGS.flatMap { suit ->
+                    CARD_VALUES.map { it of suit }
+                }.let(::Deck)
         }
     }
 }
