@@ -12,6 +12,11 @@ data class PlayingCard(val value: Value, val suit: Suit) {
         require(cardString.length in 2..3) { "Playing Card string value must be exactly 2 or 3 characters – value and suit. Example: KS, 4♥, 7D, A♣, etc." }
     }
 
+    val lowValue get() = this.value.lowValue
+    val highValue get() = this.value.highValue
+    val isBlack get() = suit.isBlack
+    val isRed get() = suit.isRed
+
     override fun toString() = "$value$suit"
 
     companion object {
@@ -22,6 +27,9 @@ data class PlayingCard(val value: Value, val suit: Suit) {
         init {
             require(value in CARD_VALUES) { "Value of playing card must be between 1 and 13 inclusively." }
         }
+
+        val lowValue get() = value
+        val highValue get() = if (value == 1u) 14u else value
 
         override fun toString() = when (value) {
             1u -> "A"
@@ -50,6 +58,9 @@ data class PlayingCard(val value: Value, val suit: Suit) {
 
     class Suit {
         private val value: String
+
+        val isBlack get() = value in listOf("♠", "♣")
+        val isRed get() = value in listOf("♦", "♥")
 
         constructor(value: String) {
             this.value = when (value.uppercase()) {

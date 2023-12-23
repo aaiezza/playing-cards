@@ -3,6 +3,8 @@ import PlayingCard.Value.Companion.of
 import assertk.assertThat
 import assertk.assertions.hasToString
 import assertk.assertions.isEqualTo
+import assertk.assertions.isFalse
+import assertk.assertions.isTrue
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
@@ -37,6 +39,10 @@ class PlayingCardTest {
             assertThat(card.value).isEqualTo(expectedCardValue)
             assertThat(card.suit).isEqualTo(expectedCardSuit)
             assertThat(card).hasToString("A♦")
+            assertThat(card.isBlack).isFalse()
+            assertThat(card.isRed).isTrue()
+            assertThat(card.lowValue).isEqualTo(1u)
+            assertThat(card.highValue).isEqualTo(14u)
         }
     }
 

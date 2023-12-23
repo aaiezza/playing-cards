@@ -6,7 +6,7 @@
 
     <artifactId>playing-cards</artifactId>
     <groupId>io.github.aaiezza</groupId>
-    <version>1.0.1</version>
+    <version>1.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>
         American playing cards library
