@@ -1,7 +1,7 @@
 class Dealer {
     fun dealCards(deck: PlayingCard.Deck, numberOfHands: UInt, cardsPerHand: UInt):
             Pair<Array<Hand>, PlayingCard.Deck> {
-        require(deck.size >= numberOfHands * cardsPerHand) { "Not enough cards in the deck to deal ${numberOfHands * cardsPerHand}" }
+        require(deck.size >= numberOfHands.toInt() * cardsPerHand.toInt()) { "Not enough cards in the deck to deal ${numberOfHands * cardsPerHand}" }
         require(numberOfHands > 0u) { "Number of hands must be greater than 0" }
         return   dealCards(deck, Array(numberOfHands.toInt()) { Hand() }, cardsPerHand)
     }
@@ -9,7 +9,7 @@ class Dealer {
     @OptIn(ExperimentalStdlibApi::class)
     fun dealCards(deck: PlayingCard.Deck, hands: Array<Hand>, cardsPerHand: UInt):
             Pair<Array<Hand>, PlayingCard.Deck> {
-        require(deck.size >= hands.size.toUInt() * cardsPerHand) { "Not enough cards in the deck to deal ${hands.size.toUInt() * cardsPerHand}" }
+        require(deck.size >= hands.size * cardsPerHand.toInt()) { "Not enough cards in the deck to deal ${hands.size.toUInt() * cardsPerHand}" }
         require(hands.isNotEmpty()) { "Number of hands must be greater than 0" }
         require(cardsPerHand > 0u) { "Number of cards per hand must be greater than 0" }
 

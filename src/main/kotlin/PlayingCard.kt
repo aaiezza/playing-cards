@@ -96,10 +96,8 @@ data class PlayingCard(val value: Value, val suit: Suit) {
 
     /* Deck of Playing Cards */
 
-    data class Deck(private val value: List<PlayingCard>) {
+    data class Deck(private val value: List<PlayingCard>) : List<PlayingCard> by value {
         fun shuffled() = value.shuffled().let(::Deck)
-
-        val size get() = value.size.toUInt()
 
         fun draw(): Pair<PlayingCard, Deck> {
             return Pair(value[0], Deck(value.subList(1, size.toInt())))

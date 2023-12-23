@@ -9,11 +9,11 @@ class DeckTest {
         val deck = PlayingCard.Deck.standard()
 
         println(deck)
-        assertThat(deck.size).isEqualTo(52u)
+        assertThat(deck.size).isEqualTo(52)
 
         val shuffledDeck = deck.shuffled()
 
-        assertThat(shuffledDeck.size).isEqualTo(52u)
+        assertThat(shuffledDeck.size).isEqualTo(52)
     }
 
     @Test
@@ -21,6 +21,6 @@ class DeckTest {
         val (topCard, deck) = PlayingCard.Deck.standard().draw()
 
         assertThat(topCard).isEqualTo("A" of "S")
-        assertThat(deck.size).isEqualTo(51u)
+        assertThat(deck.size).isEqualTo(51)
     }
 }

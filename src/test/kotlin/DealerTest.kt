@@ -37,7 +37,7 @@ class DealerTest {
 
         val (hands, newDeck) = subject.dealCards(deck, 2u, 7u)
 
-        assertThat(newDeck.size).isEqualTo(38u)
+        assertThat(newDeck.size).isEqualTo(38)
         assertThat(hands[0]).isEqualTo(
             Hand(
                 "A" of "S", 3 of "S", 5 of "S", 7 of "S", 9 of "S", "J" of "S", "K" of "S"
