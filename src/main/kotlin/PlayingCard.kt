@@ -100,7 +100,7 @@ data class PlayingCard(val value: Value, val suit: Suit) {
         fun shuffled() = value.shuffled().let(::Deck)
 
         fun draw(): Pair<PlayingCard, Deck> {
-            return Pair(value[0], Deck(value.subList(1, size.toInt())))
+            return Pair(value[0], Deck(value.subList(1, size)))
         }
 
         override fun toString() = value.toString()
