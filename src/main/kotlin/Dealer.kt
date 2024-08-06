@@ -3,7 +3,7 @@ class Dealer {
             Pair<Array<Hand>, PlayingCard.Deck> {
         require(deck.size >= numberOfHands.toInt() * cardsPerHand.toInt()) { "Not enough cards in the deck to deal ${numberOfHands * cardsPerHand}" }
         require(numberOfHands > 0u) { "Number of hands must be greater than 0" }
-        return   dealCards(deck, Array(numberOfHands.toInt()) { Hand() }, cardsPerHand)
+        return dealCards(deck, Array(numberOfHands.toInt()) { Hand() }, cardsPerHand)
     }
 
     @OptIn(ExperimentalStdlibApi::class)
