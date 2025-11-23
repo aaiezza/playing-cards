@@ -6,7 +6,7 @@ import java.util.*
 data class PlayingCard(val value: Value, val suit: Suit) {
     constructor(cardString: String) :
             this(
-                Value((if (cardString.length == 2) 1 else 2).let { cardString.substring(0, it) }),
+                Value((if (cardString.length == 2) 1 else 2).let { cardString.take(it) }),
                 Suit(cardString[cardString.length - 1])
             ) {
         require(cardString.length in 2..3) { "Playing Card string value must be exactly 2 or 3 characters – value and suit. Example: KS, 4♥, 7D, A♣, etc." }
@@ -96,12 +96,14 @@ data class PlayingCard(val value: Value, val suit: Suit) {
 
     /* Deck of Playing Cards */
 
-    data class Deck(private val value: List<PlayingCard>) : List<PlayingCard> by value {
+    data class Deck(private val value: List<PlayingCard>) {
         fun shuffled() = value.shuffled().let(::Deck)
 
         fun draw(): Pair<PlayingCard, Deck> {
             return Pair(value[0], Deck(value.subList(1, size)))
         }
+
+        val size get() = value.size
 
         override fun toString() = value.toString()
 

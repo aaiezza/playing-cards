@@ -1,4 +1,4 @@
-data class Hand(val value: List<PlayingCard>) : List<PlayingCard> by value {
+data class Hand(val value: List<PlayingCard>) {
     constructor() : this(emptyList())
     constructor(vararg cards: PlayingCard) : this(cards.toList())
 

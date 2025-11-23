@@ -1,3 +1,5 @@
+@file:Suppress("NonAsciiCharacters")
+
 import PlayingCard.Companion.asPlayingCard
 import PlayingCard.Value.Companion.of
 import assertk.assertThat
